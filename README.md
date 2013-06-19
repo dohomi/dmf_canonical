@@ -1,9 +1,9 @@
-Canonical tag for TYPO3 CMS - includes canonical tag to reduce duplicated content on website
+Canonical tag for TYPO3 CMS
 =================================================================================================
 
 ## What is it?
 
-A little plugin which typoscript accessible userfunction which adds a canonical tag for TYPO3 websites.
+A little plugin which typoscript accessible userfunction which adds a canonical tag for TYPO3 websites. With this extension the possible cases for duplicated content is getting reduced - good for SEO matters.
 
 ## What does it do?
 
