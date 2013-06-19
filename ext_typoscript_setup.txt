@@ -14,17 +14,20 @@ plugin.tx_dmfcanonical.settings {
 
     extensions {
         tx_news_pi1 {
+            # don't change this
             name = news
+            # here comes the detail pid
             pid = 555
         }
         tx_dmftravelagent_travelagent {
+            # my custom extension
             key = travel
+            # pid again from detail pid
             pid = 1119
         }
     }
 }
 
-# includeLibs.tx_dmfcanonical = EXT:dmf_canonical/class.user_canonical_check.php
 page.headerData.558899 = USER
 page.headerData.558899 {
 	includeLibs = EXT:dmf_canonical/class.user_canonical_check.php

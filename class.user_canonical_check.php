@@ -36,10 +36,10 @@ class user_canonical_check {
 	 * Check for duplicate content in cases of MountPoints
 	 * and the page settings "Show content of this page"
 	 *
-	 * @param    string $content: The PlugIn content
-	 * @param    array  $conf   : The PlugIn configuration
+	 * @param    string $content: The Plugin content
+	 * @param    array  $conf   : The Plugin configuration
 	 *
-	 * @return    The content that is displayed on the website
+	 * @return string
 	 */
 	function checkForCanonicalUrl($content, $conf) {
 		// default settings
@@ -65,7 +65,7 @@ class user_canonical_check {
 			$link = $this->checkNewsBackPid();
 		}
 
-		// Check for extension GET parameter and their pid
+		// Check for extension GET parameter with key and detail pid
 		if ($options['checkExtensions'] == 1) {
 			$extensionLink = $this->checkExtensionDetailPage($options['extensions']);
 			if ($extensionLink) {
@@ -75,7 +75,8 @@ class user_canonical_check {
 
 		// create the canonical tag
 		if ($link != '') {
-			$tag = $this->cObj->stdWrap($link, $conf['link.']); #'<link rel="canonical" href="'.$link.'" />';
+			// output: <link rel="canonical" href="'.$link.'" />
+			$tag = $this->cObj->stdWrap($link, $conf['link.']);
 
 			if ($conf['debug'] == 1) {
 				echo htmlspecialchars($tag);
@@ -89,6 +90,8 @@ class user_canonical_check {
 
 	/**
 	 * @param $conf
+	 *
+	 * @author Dominic Garms (modified)
 	 *
 	 * @return string
 	 */
@@ -123,6 +126,9 @@ class user_canonical_check {
 
 	/**
 	 * Check for used MountPoints
+	 * @author Georg Ringer (initial)
+	 * @author Dominic Garms (modified)
+	 *
 	 *
 	 * @return string
 	 */
@@ -156,6 +162,8 @@ class user_canonical_check {
 
 	/**
 	 * Check for "Show content of this page"
+	 * @author Georg Ringer (initial)
+	 * @author Dominic Garms (modified)
 	 *
 	 * @return string
 	 */
@@ -184,6 +192,8 @@ class user_canonical_check {
 	/**
 	 * Check for tt_news backPid and create a link to the record without backpid
 	 * Important: Doesn't help with indexed_search or bigger cache tables!
+	 * @author Georg Ringer (initial)
+	 * @author Dominic Garms (modified)
 	 *
 	 * @return string
 	 */
