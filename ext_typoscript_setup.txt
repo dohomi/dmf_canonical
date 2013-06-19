@@ -1,0 +1,37 @@
+# /***************************
+#  *    Default TS for
+#  *    EXT dmf_canonical
+#  *    Dominic Garms
+#  *    http://www.dmfmedia.de/
+#  ***************************/
+
+plugin.tx_dmfcanonical.settings {
+	debug = 0
+	checkMP = 1
+	checkContentOfPage = 1
+	checkTTnews = 1
+	checkExtensions = 1
+
+    extensions {
+        tx_news_pi1 {
+            name = news
+            pid = 555
+        }
+        tx_dmftravelagent_travelagent {
+            key = travel
+            pid = 1119
+        }
+    }
+}
+
+# includeLibs.tx_dmfcanonical = EXT:dmf_canonical/class.user_canonical_check.php
+page.headerData.558899 = USER
+page.headerData.558899 {
+	includeLibs = EXT:dmf_canonical/class.user_canonical_check.php
+	userFunc = user_canonical_check->checkForCanonicalUrl
+	
+	link {
+		noTrimWrap = |<link rel="canonical" href="|" />|
+	}
+}
+
