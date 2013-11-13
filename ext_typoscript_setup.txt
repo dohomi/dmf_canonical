@@ -11,18 +11,19 @@ plugin.tx_dmfcanonical.settings {
 	checkContentOfPage = 1
 	checkTTnews = 1
 	checkExtensions = 1
+	enableAllPages = 1
 
     extensions {
         tx_news_pi1 {
-            # don't change this
-            name = news
-            # here comes the detail pid
+            # news extension
+            key = news
+            # detail pid news
             pid = 555
         }
         tx_dmftravelagent_travelagent {
             # my custom extension
             key = travel
-            # pid again from detail pid
+            # detail pid travelagent
             pid = 1119
         }
     }

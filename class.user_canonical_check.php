@@ -36,8 +36,8 @@ class user_canonical_check {
 	 * Check for duplicate content in cases of MountPoints
 	 * and the page settings "Show content of this page"
 	 *
-	 * @param    string $content: The Plugin content
-	 * @param    array  $conf   : The Plugin configuration
+	 * @param    string $content : The Plugin content
+	 * @param    array $conf : The Plugin configuration
 	 *
 	 * @return string
 	 */
@@ -46,7 +46,7 @@ class user_canonical_check {
 		$link = '';
 
 		$typoScriptService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
-		$options           = $typoScriptService->convertTypoScriptArrayToPlainArray(
+		$options = $typoScriptService->convertTypoScriptArrayToPlainArray(
 			$GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_dmfcanonical.']['settings.']
 		);
 
@@ -84,8 +84,29 @@ class user_canonical_check {
 
 			return $tag;
 		} else {
+			// if all pages enable link to current page
+			if ($options['enableAllPages'] == 1) {
+				$link = $this->linkToCurrentPage();
+				$link = $this->cObj->stdWrap($link, $conf['link.']);
+				if ($conf['debug'] == 1) {
+					echo htmlspecialchars($link);
+				}
+			}
+
 			return $link;
 		}
+	}
+
+	function linkToCurrentPage() {
+		$linkConf = array(
+			'parameter' => intval($GLOBALS['TSFE']->id),
+			'forceAbsoluteUrl' => 1,
+			'returnLast' => 'url',
+			'htmlSpecialChars' => 1
+		);
+		$link = $this->cObj->typolink('', $linkConf);
+
+		return $link;
 	}
 
 	/**
@@ -101,17 +122,17 @@ class user_canonical_check {
 		$link = '';
 		foreach ($conf as $key => $value) {
 			$extensionKey = $value['key'];
-			$getParam     = \TYPO3\CMS\Core\Utility\GeneralUtility::_GET($key);
+			$getParam = \TYPO3\CMS\Core\Utility\GeneralUtility::_GET($key);
 			if ($getParam && $getParam[$extensionKey]) {
 				$linkConf = array();
 
 				$id = $value['pid'];
 				// generate the link
 				if ($id) {
-					$linkConf['parameter']                  = $id;
-					$linkConf['returnLast']                 = 'url';
-					$linkConf['addQueryString']             = 1;
-					$linkConf['addQueryString.method']      = 'GET';
+					$linkConf['parameter'] = $id;
+					$linkConf['returnLast'] = 'url';
+					$linkConf['addQueryString'] = 1;
+					$linkConf['addQueryString.method'] = 'GET';
 					$linkConf['addQueryString.']['exclude'] = 'id,MP';
 
 					$link = $this->cObj->typolink('', $linkConf);
@@ -133,17 +154,17 @@ class user_canonical_check {
 	 * @return string
 	 */
 	function checkMountPoints() {
-		$link      = '';
-		$vars      = \TYPO3\CMS\Core\Utility\GeneralUtility::_GET('MP');
+		$link = '';
+		$vars = \TYPO3\CMS\Core\Utility\GeneralUtility::_GET('MP');
 		$mpdisable = $GLOBALS['TSFE']->config['config']['MP_disableTypolinkClosestMPvalue']; // default value
 
 		// if there is a mountpoint get vars
 		if ($vars != '') {
 			// build the link
-			$linkConf                               = array();
-			$linkConf['returnLast']                 = 'url';
-			$linkConf['parameter']                  = $GLOBALS['TSFE']->id;
-			$linkConf['addQueryString']             = 1;
+			$linkConf = array();
+			$linkConf['returnLast'] = 'url';
+			$linkConf['parameter'] = $GLOBALS['TSFE']->id;
+			$linkConf['addQueryString'] = 1;
 			$linkConf['addQueryString.']['exclude'] = 'id,MP';
 
 			// disable the mountpoint rendering
@@ -175,10 +196,10 @@ class user_canonical_check {
 
 		// generate the link
 		if ($id > 0) {
-			$linkConf                          = array();
-			$linkConf['parameter']             = $id;
-			$linkConf['returnLast']            = 'url';
-			$linkConf['addQueryString']        = 1;
+			$linkConf = array();
+			$linkConf['parameter'] = $id;
+			$linkConf['returnLast'] = 'url';
+			$linkConf['addQueryString'] = 1;
 			$linkConf['addQueryString.method'] = 'GET';
 
 
@@ -208,10 +229,10 @@ class user_canonical_check {
 			$found = TRUE;
 
 			// build the link without backpid
-			$linkConf                               = array();
-			$linkConf['returnLast']                 = 'url';
-			$linkConf['parameter']                  = $GLOBALS['TSFE']->id;
-			$linkConf['addQueryString']             = 1;
+			$linkConf = array();
+			$linkConf['returnLast'] = 'url';
+			$linkConf['parameter'] = $GLOBALS['TSFE']->id;
+			$linkConf['addQueryString'] = 1;
 			$linkConf['addQueryString.']['exclude'] = 'id,tx_ttnews[backPid]';
 
 			$link = $this->cObj->typolink('', $linkConf);
