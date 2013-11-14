@@ -102,7 +102,8 @@ class user_canonical_check {
 			'parameter' => intval($GLOBALS['TSFE']->id),
 			'forceAbsoluteUrl' => 1,
 			'returnLast' => 'url',
-			'htmlSpecialChars' => 1
+			'htmlSpecialChars' => 1,
+			'addQueryString' => 0
 		);
 		$link = $this->cObj->typolink('', $linkConf);
 

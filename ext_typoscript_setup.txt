@@ -29,6 +29,17 @@ plugin.tx_dmfcanonical.settings {
     }
 }
 
+[globalVar = TSFE:page|tx_dmfcanonical > 0]
+
+page.headerData.558899 = TEXT
+page.headerData.558899 {
+    value =
+    typolink.parameter.data = page:tx_dmfcanonical
+    typolink.returnLast = url
+    wrap = <link rel="canonical" href="|" />
+}
+
+[else]
 page.headerData.558899 = USER
 page.headerData.558899 {
 	includeLibs = EXT:dmf_canonical/class.user_canonical_check.php
@@ -38,4 +49,4 @@ page.headerData.558899 {
 		noTrimWrap = |<link rel="canonical" href="|" />|
 	}
 }
-
+[global]
