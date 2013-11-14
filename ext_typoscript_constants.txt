@@ -1,0 +1,1 @@
+plugin.dmf_canonical.enableMetaRobots = 1

@@ -50,3 +50,20 @@ page.headerData.558899 {
 	}
 }
 [global]
+
+
+
+# enable meta robots
+[globalVar = LIT:1 = {$plugin.dmf_canonical.enableMetaRobots}]
+page.meta.robots = index, follow
+[end]
+[globalVar = TSFE:page|tx_dmfrobots = 1] && [globalVar = LIT:1 = {$plugin.dmf_canonical.enableMetaRobots}]
+page.meta.robots = index, nofollow
+[end]
+[globalVar = TSFE:page|tx_dmfrobots = 2] && [globalVar = LIT:1 = {$plugin.dmf_canonical.enableMetaRobots}]
+page.meta.robots = noindex, follow
+[end]
+[globalVar = TSFE:page|tx_dmfrobots = 3] && [globalVar = LIT:1 = {$plugin.dmf_canonical.enableMetaRobots}]
+page.meta.robots = noindex, nofollow
+[end]
+
